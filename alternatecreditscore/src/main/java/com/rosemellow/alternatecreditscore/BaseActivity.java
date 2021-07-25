@@ -122,10 +122,10 @@ public class BaseActivity extends AppCompatActivity {
                         }
                         String mPhoneNumber1 = tMgr1.getLine1Number();
                         Log.e("Efsdcxwesdx",mPhoneNumber);
-                        new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber1);
+                        //new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber1);
                     }
                     else {
-                        new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
+                       // new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
                     }
 
 
@@ -274,7 +274,7 @@ public class BaseActivity extends AppCompatActivity {
             String mPhoneNumber = tMgr.getLine1Number();
             Log.e("Efsdcxwesdx",mPhoneNumber);
 
-            new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
+          //  new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
 
 
             return true;

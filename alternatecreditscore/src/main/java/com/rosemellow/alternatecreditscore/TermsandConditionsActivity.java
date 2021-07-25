@@ -176,10 +176,7 @@ public class TermsandConditionsActivity extends BaseActivity {
             final String phoneNumber = credential.getId();
             phoneNumber1=credential.getId();
             new SavePref(this).setMyPhoneNumber(phoneNumber);
-
-
-
-            Log.e("rammmkska",phoneNumber1);
+            Log.e("rammmkska",phoneNumber);
         }
 
     }
