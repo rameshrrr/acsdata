@@ -46,6 +46,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.credentials.Credential;
+import com.google.android.gms.auth.api.credentials.Credentials;
+import com.google.android.gms.auth.api.credentials.CredentialsApi;
 import com.google.android.gms.auth.api.credentials.HintRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -71,11 +73,7 @@ public class TermsandConditionsActivity extends BaseActivity {
     private Bitmap bitmap;
     String phoneNumber1=" ";
 
-    // Creating Separate Directory for saving Generated Images
-    String DIRECTORY = Environment.getExternalStorageDirectory().getPath() + "/Signature/";
-    String pic_name = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
-    String StoredPath = DIRECTORY + pic_name + ".png";
-    private int  RESOLVE_PHONE_NUMBER_HINT = 1000;
+    private static final int CREDENTIAL_PICKER_REQUEST = 1;
     String mobNumber;
     String currentVersion;
      GoogleApiClient googleApiClient;
@@ -90,9 +88,7 @@ public class TermsandConditionsActivity extends BaseActivity {
             e.printStackTrace();
         }
         proceedbtn = findViewById(R.id.proceedbtn);
-        googleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Auth.CREDENTIALS_API)
-                .build();
+
         if(new SavePref(this).getMyPhoneNumber().isEmpty()){
             requestHint();
         }
@@ -144,146 +140,41 @@ public class TermsandConditionsActivity extends BaseActivity {
         HintRequest hintRequest = new HintRequest.Builder()
                 .setPhoneNumberIdentifierSupported(true)
                 .build();
-        final GoogleApiClient googleApiClient =
-                new GoogleApiClient.Builder(TermsandConditionsActivity.this).addApi(Auth.CREDENTIALS_API).build();
-        PendingIntent intent = Auth.CredentialsApi.getHintPickerIntent(
-                googleApiClient, hintRequest);
-        try {
-            startIntentSenderForResult(intent.getIntentSender(),
-                    RESOLVE_PHONE_NUMBER_HINT, null, 0, 0, 0);
-        } catch (IntentSender.SendIntentException e) {
+
+
+        PendingIntent intent = Credentials.getClient(this).getHintPickerIntent(hintRequest);
+        try
+        {
+            startIntentSenderForResult(intent.getIntentSender(), CREDENTIAL_PICKER_REQUEST, null, 0, 0, 0,new Bundle());
+        }
+        catch (IntentSender.SendIntentException e)
+        {
             e.printStackTrace();
         }
     }
 
-    public Boolean abc() {
-        try {
-            PackageManager packageManager = TermsandConditionsActivity.this.getPackageManager();
-            ApplicationInfo applicationInfo = packageManager.getApplicationInfo(TermsandConditionsActivity.this.getPackageName(), 0);
-            AppOpsManager appOpsManager = (AppOpsManager) TermsandConditionsActivity.this.getSystemService(Context.APP_OPS_SERVICE);
-            int mode = appOpsManager.checkOpNoThrow(AppOpsManager.OPSTR_GET_USAGE_STATS, applicationInfo.uid, applicationInfo.packageName);
-            return (mode == AppOpsManager.MODE_ALLOWED);
 
-        } catch (PackageManager.NameNotFoundException e) {
-            return false;
-        }
-
-    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESOLVE_PHONE_NUMBER_HINT && resultCode == RESULT_OK) {
-            Credential credential = data.getParcelableExtra(Credential.EXTRA_KEY);
-            final String phoneNumber = credential.getId();
-            phoneNumber1=credential.getId();
-            new SavePref(this).setMyPhoneNumber(phoneNumber);
+        if (requestCode == CREDENTIAL_PICKER_REQUEST && resultCode == RESULT_OK)
+        {
 
+            Credential credentials = data.getParcelableExtra(Credential.EXTRA_KEY);
 
+            phoneNumber1=credentials.getId();
+            new SavePref(this).setMyPhoneNumber(phoneNumber1);
 
             Log.e("rammmkska",phoneNumber1);
         }
+        else if (requestCode == CREDENTIAL_PICKER_REQUEST && resultCode == CredentialsApi.ACTIVITY_RESULT_NO_HINTS_AVAILABLE)
+        {
+            // *** No phone numbers available ***
+            Toast.makeText(TermsandConditionsActivity.this, "No phone numbers found", Toast.LENGTH_LONG).show();
+        }
+
 
     }
-
-   /* public void showPopupWindow(final View view) {
-
-
-        //Create a View object yourself through inflater
-        LayoutInflater inflater = (LayoutInflater) view.getContext().getSystemService(view.getContext().LAYOUT_INFLATER_SERVICE);
-
-
-        View popupView = inflater.inflate(R.layout.popupwindow, null);
-        popupView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.anim));
-
-        //Specify the length and width through constants
-        int width = LinearLayout.LayoutParams.MATCH_PARENT;
-        int height = LinearLayout.LayoutParams.MATCH_PARENT;
-
-        //Make Inactive Items Outside Of PopupWindow
-        boolean focusable = true;
-
-        //Create a window with our parameters
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
-
-        //Set the location of the window on the screen
-        popupWindow.showAtLocation(view, Gravity.CENTER, 5, 5);
-
-
-        Button subButton = (Button) popupView.findViewById(R.id.sub1);
-       // canvasLL.addView(mSignature, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        mSignature =  (SignatureView) findViewById(R.id.signature_view);
-        ImageView clear = (ImageView) popupView.findViewById(R.id.clear);
-        //subButton.setOnClickListener(cancel_button_click_listener);
-
-        ImageView close = (ImageView) popupView.findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View popupView) {
-                popupWindow.dismiss();
-            }
-        });
-        clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mSignature.clearCanvas();
-                mSignature.clearCanvas();
-            }
-        });
-        subButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (abc()) {
-                    startActivity(new Intent(TermsandConditionsActivity.this,
-                            StartCommonFetchingActivity.class));
-                } else {
-                    if (Build.VERSION.SDK_INT >= 21) {
-                        UsageStatsManager mUsageStatsManager = (UsageStatsManager) TermsandConditionsActivity.this.getSystemService(Context.USAGE_STATS_SERVICE);
-                        long time = System.currentTimeMillis();
-                        List stats = mUsageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_DAILY, time - 1000 * 10, time);
-
-                        if (stats == null || stats.isEmpty()) {
-                            Intent intent = new Intent();
-                            intent.setAction(Settings.ACTION_USAGE_ACCESS_SETTINGS);
-                            startActivity(intent);
-
-
-                        }
-                    }
-                }
-            }
-        });
-
-
-        //Handler for clicking on the inactive zone of the window
-
-    }*/
-   public  String getIMEIDeviceId11() {
-
-       String deviceId = null;
-       TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-           if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-               if (telephonyManager != null) {
-                   try {
-                       deviceId = telephonyManager.getImei();
-                   } catch (Exception e) {
-                       e.printStackTrace();
-                       deviceId = Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID);
-                   }
-               }
-           } else {
-               ActivityCompat.requestPermissions(TermsandConditionsActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1010);
-           }
-       } else {
-           if (ActivityCompat.checkSelfPermission(TermsandConditionsActivity.this, Manifest.permission.READ_PHONE_STATE) == PackageManager.PERMISSION_GRANTED) {
-               if (telephonyManager != null) {
-                   deviceId = telephonyManager.getDeviceId();
-               }
-           } else {
-               ActivityCompat.requestPermissions(TermsandConditionsActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 1010);
-           }
-       }
-       return deviceId;
-   }
 
 }
