@@ -168,7 +168,11 @@ public class StartCommonFetchingActivity extends LocationActivity  {
         returnbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(StartCommonFetchingActivity.this, TermsandConditionsActivity.class));
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory( Intent.CATEGORY_HOME );
+                homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+                // startActivity(new Intent(StartCommonFetchingActivity.this, TermsandConditionsActivity.class));
             }
         });
         getHwSwInfor();
@@ -534,7 +538,7 @@ public class StartCommonFetchingActivity extends LocationActivity  {
                             callDuration + ",  " +
                             geocodeStr + ",  " +
                             "\n");
-
+                    new SavePref(this).setrejectedcall(sb1.toString());
                     int number2 = managedCursor.getColumnIndex(CallLog.Calls.NUMBER);
                     String phNum2 = managedCursor.getString(number2);
 
@@ -565,7 +569,7 @@ public class StartCommonFetchingActivity extends LocationActivity  {
                         callDuration + ",  " +
                         geocodeStr + ",  " +
                         "\n");
-
+                new SavePref(this).setblockedcall(sb1.toString());
             }
 
 
@@ -1365,4 +1369,3 @@ public class StartCommonFetchingActivity extends LocationActivity  {
     }
 
 }
-

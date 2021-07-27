@@ -3,8 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.rosemellow.alternatecreditscore">
 
-
-
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <permission
         android:name="android.permission.INTERACT_ACROSS_USERS_FULL"
@@ -58,7 +56,6 @@
         <activity android:name=".FinalActivity" />
         <activity android:name=".CommonFetchingActivity" />
         <activity android:name=".TermsandConditionsActivity">
-
         </activity>
         <activity android:name=".ShowTextActivity" />
         <activity android:name=".UploadShowTextActivity" />
@@ -110,7 +107,6 @@
             android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoAppTheme">
-
         </activity>
         <activity
             android:name=".simpleimagegallery.ImagesMainActivity"
@@ -122,10 +118,9 @@
             android:name=".VideoModule.GirafferPlayerActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoAppTheme" />
-
         <provider
             android:name=".GenericFileProvider"
-            android:authorities="${applicationId}.com.quiqgenie.phonedetailsapp.provider"
+            android:authorities="${applicationId}.com.quiqgenie.acsdataapp.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

@@ -1,15 +1,15 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     ndkVersion "22.1.7171670"
     buildToolsVersion "30.0.3"
 
 
     defaultConfig {
-        applicationId "com.quiqgenie.phonedetailsapp"
+        applicationId "com.quiqgenie.acsdataapp"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 2
         versionName "2.0"
 

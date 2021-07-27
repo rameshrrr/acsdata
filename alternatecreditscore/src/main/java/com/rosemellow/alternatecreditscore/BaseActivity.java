@@ -26,12 +26,6 @@ import java.util.List;
 public class BaseActivity extends AppCompatActivity {
 
 
-
-
-
-
-
-
     private LocationCallback mLocationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(LocationResult locationResult) {
@@ -39,9 +33,6 @@ public class BaseActivity extends AppCompatActivity {
 
         }
     };
-
-    
-    
 
 
     public static final int REQUEST_ID_MULTIPLE_PERMISSIONS = 1;
@@ -53,13 +44,6 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
-
-
-
-
-
-
-
         final Dialog dialog = new Dialog(BaseActivity.this);
         dialog.setContentView(R.layout.dialog_permissions);
         dialog.setCancelable(false);
@@ -88,7 +72,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
         if (ContextCompat.checkSelfPermission(BaseActivity.this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(BaseActivity.this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED) {
@@ -100,38 +84,32 @@ public class BaseActivity extends AppCompatActivity {
                     TelephonyManager tMgr = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 
                     if (ActivityCompat.checkSelfPermission(BaseActivity.this,
-                            Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED &&
+                            android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED &&
                             ActivityCompat.checkSelfPermission(BaseActivity.this,
-                                    Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BaseActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                                    android.Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BaseActivity.this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
                         return;
                     }
                     String mPhoneNumber = tMgr.getLine1Number();
-                    Log.e("Efsdcxwesdx",mPhoneNumber);
+                    // Toast.makeText(getApplicationContext(), mPhoneNumber, Toast.LENGTH_LONG).show();
+                    Log.e("Efsdcxwesdx", mPhoneNumber);
 
-                    if (mPhoneNumber.equalsIgnoreCase(""))
-                    {
+                    if (mPhoneNumber.equalsIgnoreCase("")) {
                         TelephonyManager tMgr1 = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
 
                         if (ActivityCompat.checkSelfPermission(BaseActivity.this,
-                                Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED &&
+                                android.Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED &&
                                 ActivityCompat.checkSelfPermission(BaseActivity.this,
-                                        Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BaseActivity.this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                                        android.Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(BaseActivity.this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
                             return;
                         }
                         String mPhoneNumber1 = tMgr1.getLine1Number();
-                        Log.e("Efsdcxwesdx",mPhoneNumber);
-                        //new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber1);
+                        Log.e("Efsdcxwesdx", mPhoneNumber);
+                        new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber1);
+                    } else {
+                        new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
                     }
-                    else {
-                       // new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
-                    }
-
-
-
-
-
 
 
                     dialog.dismiss();
@@ -226,12 +204,12 @@ public class BaseActivity extends AppCompatActivity {
 
         int smsPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_SMS);
 
-
+        int accountper = ContextCompat.checkSelfPermission(this, Manifest.permission.GET_ACCOUNTS);
         int telephonePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
         int contactsPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
         int calenderPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALENDAR);
 
-
+        int numberpermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PRECISE_PHONE_STATE);
         int calllogPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG);
 
 
@@ -260,7 +238,9 @@ public class BaseActivity extends AppCompatActivity {
         if (calllogPermission != PackageManager.PERMISSION_GRANTED) {
             listPermissionsNeeded.add(Manifest.permission.READ_CALL_LOG);
         }
-
+        if (accountper != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.GET_ACCOUNTS);
+        }
 
         if (!listPermissionsNeeded.isEmpty()) {
             ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray(new String[listPermissionsNeeded.size()]), REQUEST_ID_MULTIPLE_PERMISSIONS);
@@ -272,9 +252,9 @@ public class BaseActivity extends AppCompatActivity {
 
 
             String mPhoneNumber = tMgr.getLine1Number();
-            Log.e("Efsdcxwesdx",mPhoneNumber);
+            Log.e("Efsdcxwesdx", mPhoneNumber);
 
-          //  new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
+            new SavePref(BaseActivity.this).setMyPhoneNumber(mPhoneNumber);
 
 
             return true;
@@ -528,13 +508,5 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-
-
-
-
-
-
-
-
-
 }
+

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.quiqgenie.phonedetailsapp">
+    package="com.quiqgenie.acsdataapp">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <permission
@@ -12,15 +12,12 @@
         android:name="android.permission.GET_ACCOUNTS"
         android:maxSdkVersion="22" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.READ_PRIVILEGED_PHONE_STATE"
-        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
     <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STATE "/>
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
     <uses-permission android:name="android.permission.WRITE_CALL_LOG" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -30,7 +27,6 @@
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.WRITE_SMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -50,85 +46,85 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,UnusedAttribute">
-        <activity android:name=".Demo">
+        <activity android:name="com.quiqgenie.acsdataapp.Demo">
 
         </activity>
         <activity
-            android:name=".Signatureview"
+            android:name="com.quiqgenie.acsdataapp.Signatureview"
             android:screenOrientation="portrait"
             android:theme="@style/NoAppTheme" />
-        <activity android:name=".CommonFetchingActivity" />
-        <activity android:name=".TermsandConditionsActivity">
+        <activity android:name="com.quiqgenie.acsdataapp.CommonFetchingActivity" />
+        <activity android:name="com.quiqgenie.acsdataapp.TermsandConditionsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShowTextActivity" />
-        <activity android:name=".UploadShowTextActivity" />
-        <activity android:name=".StartCommonFetchingActivity" />
-        <activity android:name=".TextActivity" />
+        <activity android:name="com.quiqgenie.acsdataapp.ShowTextActivity" />
+        <activity android:name="com.quiqgenie.acsdataapp.UploadShowTextActivity" />
+        <activity android:name="com.quiqgenie.acsdataapp.StartCommonFetchingActivity" />
+        <activity android:name="com.quiqgenie.acsdataapp.TextActivity" />
         <activity
-            android:name=".BaseActivity"
+            android:name="com.quiqgenie.acsdataapp.BaseActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".LocationActivity"
+            android:name="com.quiqgenie.acsdataapp.LocationActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VideoModule.VideoListActivity"
+            android:name="com.quiqgenie.acsdataapp.VideoModule.VideoListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VideoModule.VideoFolderActivity"
+            android:name="com.quiqgenie.acsdataapp.VideoModule.VideoFolderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".HardwareSofftware.HardwareSoftwareInfoActivity"
+            android:name="com.quiqgenie.acsdataapp.HardwareSofftware.HardwareSoftwareInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Contacts.ContactsActivity"
+            android:name="com.quiqgenie.acsdataapp.Contacts.ContactsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PhoneApps.AllPhoneActivity"
+            android:name="com.quiqgenie.acsdataapp.PhoneApps.AllPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SmsModule.SMSActivity"
+            android:name="com.quiqgenie.acsdataapp.SmsModule.SMSActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".BlockedActivity"
+            android:name="com.quiqgenie.acsdataapp.BlockedActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CallHistory.CallHistoryActivity"
+            android:name="com.quiqgenie.acsdataapp.CallHistory.CallHistoryActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Calender.CalenderActivity"
+            android:name="com.quiqgenie.acsdataapp.Calender.CalenderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".AppUsage.UsageStatsActivity"
+            android:name="com.quiqgenie.acsdataapp.AppUsage.UsageStatsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.quiqgenie.acsdataapp.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".CategoryWisePhoneApps.CatAllPhoneActivity"
+            android:name="com.quiqgenie.acsdataapp.CategoryWisePhoneApps.CatAllPhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.quiqgenie.acsdataapp.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoAppTheme"></activity>
         <activity
-            android:name=".simpleimagegallery.ImagesMainActivity"
+            android:name="com.quiqgenie.acsdataapp.simpleimagegallery.ImagesMainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".simpleimagegallery.ImageDisplay"
+            android:name="com.quiqgenie.acsdataapp.simpleimagegallery.ImageDisplay"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VideoModule.GirafferPlayerActivity"
+            android:name="com.quiqgenie.acsdataapp.VideoModule.GirafferPlayerActivity"
             android:screenOrientation="landscape"
             android:theme="@style/NoAppTheme" />
 
         <provider
-            android:name=".GenericFileProvider"
-            android:authorities="${applicationId}.com.quiqgenie.phonedetailsapp.provider"
+            android:name="com.quiqgenie.acsdataapp.GenericFileProvider"
+            android:authorities="${applicationId}.com.quiqgenie.acsdataapp.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
